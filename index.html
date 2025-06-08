@@ -1,1 +1,857 @@
-<h1>Hello, world! I am Vipin! :D</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vipin Karthic aka Hardhacker17</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #2a2a2a;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+        }
+        
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, #8b5cf6 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, #06b6d4 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        nav.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero .tagline {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        .hero .subtitle {
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent);
+        }
+        
+        /* Sections */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .skill-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .skill-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            padding: 0.3rem 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .skill-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+        
+        .project-image {
+            height: 200px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .project-content {
+            padding: 2rem;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: var(--bg-tertiary);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        
+        .contact-info {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .contact-methods {
+            list-style: none;
+            margin-top: 2rem;
+        }
+        
+        .contact-methods li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-methods li:hover {
+            color: var(--accent);
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .discord-highlight {
+            background: var(--bg-tertiary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            margin-top: 2rem;
+        }
+        
+        .discord-highlight strong {
+            color: var(--accent);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        footer {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient);
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+
+        #typing {
+        font-family: inherit;
+        font-size: 2.5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 2px solid #fff;
+        }
+
+
+        @keyframes blinkCursor {
+        0%, 100% { border-color: transparent; }
+        50%      { border-color: #fff; }
+        }
+
+        #typing {
+        animation: blinkCursor 0.7s step-end infinite;
+        }
+
+        p.tagline span {
+        font-family: inherit;
+        font-size: 1.25rem;        
+        white-space: nowrap;
+        overflow: hidden;
+        }
+
+        @keyframes blinkCursor {
+        0%, 100% { border-color: transparent; }
+        50%      { border-color: #fff; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">&lt;/dev&gt;</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1><span id="typing"></span></h1>
+            <p class="subtitle">Student at IIIT Kottayam, Upcoming GameDev</p>
+            <!-- <p class="tagline"><span id="typing2"></span>Discord Bot Developer & Game Developer<br>One dev. Many systems. All optimized.</p> -->
+            <p class="tagline">
+            <span id="typing-line1"></span><br>
+            <span id="typing-line2"></span>
+            </p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="about" class="section">
+        <h2>About Me</h2>
+        <div class="about-grid">
+            <div class="about-text fade-in">
+            <p>I'm a 3rd year CS student at IIIT Kottayam who loves making games, digging into low level programming and optimizations. I enjoy solving logic-oriented problems when I'm free, and developing Discord bots as well as other projects that help me improve myself as a programmer.</p> 
+            <br>
+            <p>Currently Freelancing, I develop custom discord bots and games that are dev'ed for each user as per requests, Comptetitive Programming helps me think in code and program things clean and efficiently.</p>
+            <br>
+            <p>I enjoy trying to do challenging things even if it leads to a loss! Currently trying to hit 150 WPM and trying to improve in competitive programming and game development.</p>     
+        </div>
+            <div class="about-stats fade-in">
+                <div class="stat-card">
+                    <span class="stat-number">13+ / 1</span>
+                    <span>Discord Bots Created / Game Created</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">2+</span>
+                    <span>Years Experience</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">7+</span>
+                    <span>Happy Clients</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">24/7</span>
+                    <span>Dm me anytime!, Always here to help even with doubts</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="skills" class="section">
+        <h2>Skills & Expertise</h2>
+        <div class="skills-grid">
+            <div class="skill-card fade-in">
+                <div class="skill-icon">🤖</div>
+                <h3 class="skill-title">Discord Bot Development</h3>
+                <ul class="skill-list">
+                    <li>Discord.py / Disnake</li>
+                    <li>Slash Commands & Interactions</li>
+                    <li>Database Additions</li>
+                    <li>Gamebots / Dynamic stuff</li>
+                    <li>Custom Features & APIs</li>
+                </ul>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">🎮</div>
+                <h3 class="skill-title">Game Development</h3>
+                <ul class="skill-list">
+                    <li>Unity Engine</li>
+                    <li>C# Programming</li>
+                    <li>2D/3D Game Design</li>
+                    <li>Procedural Gen and Animation</li>
+                    <li>Anything Challenging enough !</li>
+                </ul>
+            </div>
+            <div class="skill-card fade-in">
+                <div class="skill-icon">💻</div>
+                <h3 class="skill-title">Programming Languages</h3>
+                <ul class="skill-list">
+                    <li>Python</li>
+                    <li>C++</li>
+                    <li>C#</li>
+                    <li>Java</li>
+                    <li>JavaScript</li>
+                    <li>SQL</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <section id="projects" class="section">
+        <h2>Current Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card fade-in">
+                <a href="https://top.gg/bot/1197008170535637032"><div class="project-image"><img src="BEB.png"></div></a>
+                <div class="project-content">
+                    <h3 class="project-title">BEB RPG</h3>
+                    <div class="project-tags">
+                        <span class="tag">Discord.py</span>
+                        <span class="tag">PostgreSQL</span>
+                    </div>
+                    <p>BEB RPG is a pixel art RPG game bot on Discord where players can create unique characters, battle monsters, and earn loot. The game blends the charm of anime-inspired visuals with an accessible and polished RPG experience.<br><br> Designed for accessibility and long-term engagement, BEB Bot offers a polished social experience where players can interact, trade, and develop their characters through various mechanics such as combat, crafting, and events.</p>
+                    <p><br>This was done as independent contractor work as part of 2 man team !</p>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <div class="project-image"><img src="pjz.png"></div>
+                <div class="project-content">
+                    <h3 class="project-title">PROJECT Z</h3>
+                    <div class="project-tags">
+                        <span class="tag">Unity Scripting API</span>
+                        <span class="tag">C#</span>
+                    </div>
+                    <p>Hyper Fast FPS based zombie shooter, You being a part of a team sent to collect important information in an failed and abandoned research island, happend to be stuck there after an accident, You have 5 days to escape, kill the boss at the end, use the receiver to leave or become a zombie ! <br> <br> <newline>|| Currently in development ! ||</newline></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="section">
+        <h2>Let's Work Together</h2>
+        <div class="contact-grid">
+            <div class="contact-info fade-in">
+                <p>I'm always open to discussing new projects or help with independent codebases or if u just wanna talk in general :. Whether you need a custom Discord bot, game development, or any other requirement, I'm here to help.</p>
+                
+                <div class="discord-highlight">
+                    <h4>💬 Discord is my primary platform for communication</h4>
+                    <p>For fastest response and most of my freelance work, reach out on Discord: <strong>hardhacker17</strong></p>
+                </div>
+                
+                <ul class="contact-methods">
+                    <li>
+                        <span class="contact-icon">💬</span>
+                        <span><strong>Discord:</strong> hardhacker17</span>
+                    </li>
+                    <li>
+                        <span class="contact-icon">📧</span>
+                        <span><strong>Email:</strong> vipinkarthic17112005@gmail.com</span>
+                    </li>
+                    <li>
+                        <span class="contact-icon">🐙</span>
+                        <span><strong>GitHub:</strong> github.com/vipinkarthic</span>
+                    </li>
+                    <li>
+                        <span class="contact-icon">🎓</span>
+                        <span><strong>Institution:</strong> IIIT Kottayam</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="contact-info fade-in">
+                <h3>What I Offer</h3>
+                <ul class="skill-list" style="margin-top: 1rem;">
+                    <li>Custom Discord Bot Development</li>
+                    <li>Game Development (2D/3D)</li>
+                    <li>API Integration & Automation</li>
+                    <li>Database Design & Management</li>
+                    <li>Flexible Pricing</li>
+                    <li>Fast Turnaround Times</li>
+                    <li>Direct Communication</li>
+                    <li>A friendly person talk to :D</li>
+                </ul>
+                
+                <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-tertiary); border-radius: 8px;">
+                    <h4 style="color: var(--accent); margin-bottom: 1rem;">🚀 Ready to Start?</h4>
+                    <p>Drop me a message on Discord or my email and let's discuss your project requirements, timeline, and budget. I'm available for both short-term projects and long-term collaborations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 hardhacker17. Most opportunities are created by luck. It takes skill to grasp those opportunities and turn it into success.</p>
+    </footer>
+    
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1) Type the H1 as before:
+            const nameText = "Vipin Karthic K";
+            const nameTarget = document.getElementById("typing");
+            let nameIdx = 0;
+             
+            function typeName() {
+            typeTaglineLine1()    
+            if (nameIdx < nameText.length) {
+                nameTarget.textContent += nameText.charAt(nameIdx);
+                nameIdx++;
+                setTimeout(typeName, 150);
+            } else {
+                // typeTaglineLine1();
+            }
+            }
+
+            const line1Text = "Discord Bot Developer & Game Developer";
+            const line2Text = "One dev. Many systems. All optimized.";
+
+            const line1Target = document.getElementById("typing-line1");
+            const line2Target = document.getElementById("typing-line2");
+
+            let line1Idx = 0;
+            let line2Idx = 0;
+
+            function typeTaglineLine1() {
+            if (line1Idx < line1Text.length) {
+                line1Target.textContent += line1Text.charAt(line1Idx);
+                line1Idx++;
+                setTimeout(typeTaglineLine1, 1000);
+            } else {
+                // small pause before starting line 2
+                setTimeout(typeTaglineLine2, 300);
+            }
+            }
+
+            function typeTaglineLine2() {
+            if (line2Idx < line2Text.length) {
+                line2Target.textContent += line2Text.charAt(line2Idx);
+                line2Idx++;
+                setTimeout(typeTaglineLine2, 1000);
+            }
+            }
+
+            // Kick off typing sequence:
+            typeName();
+        });
+
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+        
+        // Scroll indicator
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scrollIndicator').style.width = scrollPercent + '%';
+        });
+        
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Dynamic typing effect for hero subtitle (optional enhancement)
+        const subtitle = document.querySelector('.hero .tagline');
+        const originalText = subtitle.textContent;
+        
+        // Add some interactive hover effects
+        document.querySelectorAll('.skill-card, .project-card, .stat-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+        
+        // Add click to copy Discord username
+        document.querySelectorAll('.contact-methods li').forEach(item => {
+            if (item.textContent.includes('hardhacker17')) {
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', () => {
+                    navigator.clipboard.writeText('hardhacker17').then(() => {
+                        const originalText = item.innerHTML;
+                        item.innerHTML = '<span class="contact-icon">✅</span><span><strong>Discord:</strong> Copied to clipboard!</span>';
+                        setTimeout(() => {
+                            item.innerHTML = originalText;
+                        }, 2000);
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
