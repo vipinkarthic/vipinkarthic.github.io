@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vipin Karthic — Game Dev Portfolio</title>
+    <meta name="description" content="Game development portfolio of Vipin Karthic — a live anime RPG Discord bot, a roguelike FPS, and a C++ procedural terrain generator.">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #2a2a2a;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; opacity: 0.03;
+        }
+        .bg-animation::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, #8b5cf6 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, #06b6d4 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 1rem 2rem;
+            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1100px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-family: 'JetBrains Mono', monospace; font-size: 1.5rem;
+            font-weight: 600; color: var(--accent); text-decoration: none;
+        }
+        .nav-back {
+            color: var(--text-secondary); text-decoration: none;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .nav-back:hover { color: var(--text-primary); }
+
+        .wrap { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+
+        header.page-head { padding: 9rem 2rem 3rem; text-align: center; max-width: 820px; margin: 0 auto; }
+        header.page-head h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        header.page-head .subtitle {
+            font-size: 1.05rem; color: var(--accent);
+            font-family: 'JetBrains Mono', monospace; margin-bottom: 1.25rem;
+        }
+        header.page-head p { color: var(--text-secondary); }
+        .head-links { display: flex; gap: 1.5rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+        .head-links a {
+            color: var(--text-secondary); text-decoration: none; font-size: 0.95rem;
+            font-family: 'JetBrains Mono', monospace; transition: color 0.3s ease;
+        }
+        .head-links a:hover { color: var(--accent); }
+
+        .project {
+            background: var(--bg-secondary); border: 1px solid var(--border);
+            border-radius: 12px; overflow: hidden; margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        .project:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+        .project-media {
+            width: 100%; background: #000;
+            display: flex; align-items: center; justify-content: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .project-media img, .project-media video {
+            width: 100%; max-height: 440px; object-fit: contain; display: block;
+        }
+
+        .project-body { padding: 2.5rem; }
+        .project-head { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+        .project-body h2 { font-size: 1.8rem; font-weight: 700; }
+
+        .badge {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+            text-transform: uppercase; letter-spacing: 0.05em;
+            padding: 0.25rem 0.7rem; border-radius: 20px;
+            background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid #22c55e44;
+        }
+        .badge.dev { background: rgba(59,130,246,0.15); color: var(--accent); border-color: #3b82f644; }
+
+        .role { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem; }
+        .role strong { color: var(--text-primary); }
+
+        .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .tag {
+            background: var(--bg-tertiary); color: var(--accent);
+            padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-body p { margin-bottom: 1rem; color: #d4d4d4; }
+        .label {
+            font-family: 'JetBrains Mono', monospace; color: var(--accent);
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em;
+            margin: 1.5rem 0 0.75rem;
+        }
+        .feature-list { list-style: none; }
+        .feature-list li { padding: 0.35rem 0 0.35rem 1.3rem; position: relative; color: var(--text-secondary); }
+        .feature-list li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+        .feature-list li strong { color: var(--text-primary); }
+        code {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.82em;
+            background: var(--bg-primary); border: 1px solid var(--border);
+            border-radius: 5px; padding: 0.05rem 0.35rem; color: #c8c8c8;
+        }
+
+        .metrics { display: flex; gap: 1rem; flex-wrap: wrap; margin: 1rem 0 0.5rem; }
+        .metric {
+            background: var(--bg-tertiary); border: 1px solid var(--border);
+            border-radius: 10px; padding: 1rem 1.4rem; text-align: center; min-width: 130px; flex: 1;
+        }
+        .metric .n { font-size: 1.5rem; font-weight: 700; color: var(--accent); display: block; }
+        .metric .l { font-size: 0.8rem; color: var(--text-secondary); }
+
+        .takeaway {
+            margin-top: 1.5rem; padding: 1.25rem 1.5rem; background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent); border-radius: 8px; color: #d4d4d4;
+        }
+
+        .links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+        .btn {
+            padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500;
+            transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+        .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--accent); }
+
+        /* media gallery (multiple clips/images) */
+        .media-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 0.75rem; margin: 0.5rem 0 1rem;
+        }
+        .media-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .media-grid img, .media-grid video {
+            width: 100%; border-radius: 10px; border: 1px solid var(--border);
+            display: block; background: #000; aspect-ratio: 16 / 10; object-fit: cover;
+        }
+
+        .stage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin: 0.5rem 0; }
+        .stage { text-align: center; }
+        .stage img { width: 100%; border-radius: 8px; border: 1px solid var(--border); image-rendering: pixelated; }
+        .stage span {
+            display: block; font-size: 0.75rem; color: var(--text-secondary);
+            margin-top: 0.4rem; font-family: 'JetBrains Mono', monospace;
+        }
+
+        footer {
+            background: var(--bg-secondary); padding: 2rem; text-align: center;
+            border-top: 1px solid var(--border); color: var(--text-secondary); margin-top: 2rem;
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .media-grid, .media-grid.cols-3 { grid-template-columns: 1fr 1fr; }
+            .stage-grid { grid-template-columns: 1fr; }
+            .project-body { padding: 1.5rem; }
+            header.page-head { padding: 8rem 1rem 2rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation"></div>
+
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">&lt;/dev&gt;</a>
+            <a href="/" class="nav-back">← Back to home</a>
+        </div>
+    </nav>
+
+    <header class="page-head">
+        <h1>Game Development Portfolio</h1>
+        <p class="subtitle">Unity · C# · C++ · Python</p>
+        <div class="head-links">
+            <a href="https://github.com/vipinkarthic" target="_blank">GitHub ↗</a>
+            <a href="https://www.linkedin.com/in/vipin-karthic/" target="_blank">LinkedIn ↗</a>
+            <a href="mailto:vipinkarthic17112005@gmail.com">vipinkarthic17112005@gmail.com</a>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <article class="project">
+            <div class="project-body">
+                <div class="project-head">
+                    <h2>BEB RPG — RPG Discord Bot</h2>
+                    <span class="badge">Live</span>
+                </div>
+                <p class="role"><strong>Tech:</strong> Python, discord.py, SQL, DigitalOcean</p>
+                <div class="project-tags">
+                    <span class="tag">discord.py</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">Game Economy</span>
+                    <span class="tag">Gacha</span>
+                    <span class="tag">Live Ops</span>
+                </div>
+
+                <p>BEB RPG is an anime styled RPG on Discord. Players create a character, fight monsters in
+                    turn based battles, obtain gear through a gacha system, trade with other players and
+                    progress over time</p>
+                <p>Built as game designer and lead developer, covering the combat, economy, gacha and loot
+                    systems, character avatar rendering, the database and live hosting</p>
+
+                <div class="metrics">
+                    <div class="metric"><span class="n">835+</span><span class="l">Discord servers</span></div>
+                    <div class="metric"><span class="n">4.78★</span><span class="l">Top.gg rating</span></div>
+                    <div class="metric"><span class="n">Staff Pick</span><span class="l">Top.gg · Q1 2025</span></div>
+                </div>
+
+                <div class="label">Gallery</div>
+                <div class="media-grid cols-3">
+                    <img src="https://i.imgur.com/nkTJeze.gif" loading="lazy" alt="BEB RPG gameplay">
+                    <img src="https://i.imgur.com/cz5nOFv.gif" loading="lazy" alt="BEB RPG gameplay">
+                    <img src="https://i.imgur.com/raAeoU8.gif" loading="lazy" alt="BEB RPG gameplay">
+                    <img src="https://i.imgur.com/L2u9hUG.gif" loading="lazy" alt="BEB RPG gameplay">
+                    <img src="https://i.imgur.com/H4ZIoCb.gif" loading="lazy" alt="BEB RPG gameplay">
+                    <img src="https://i.imgur.com/w6oL1fB.gif" loading="lazy" alt="BEB RPG gameplay">
+                </div>
+
+                <div class="label">What I built</div>
+                <ul class="feature-list">
+                    <li><strong>Characters and customization:</strong> players create and equip a character, with equipped gear rendered onto an avatar through custom image compositing</li>
+                    <li><strong>Turn based combat:</strong> enemy encounters with adapting AI, traits, damage calculation and item drops</li>
+                    <li><strong>Player economy:</strong> a market for buying, selling and trading between players, plus shops</li>
+                    <li><strong>Gacha and loot:</strong> gear obtained through pulls, rarity tiers, randomized drops and gear enchanting, built on a custom loot generation system</li>
+                    <li><strong>Crafting, quests, farming, events and leaderboards</strong> for ongoing progression</li>
+                </ul>
+
+                <div class="links">
+                    <a class="btn btn-primary" href="https://top.gg/bot/1197008170535637032" target="_blank">Play / View on Top.gg ↗</a>
+                    <a class="btn btn-secondary" href="https://discordbotlist.com/bots/beb-rpg" target="_blank">Discord Bot List ↗</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="project">
+            <div class="project-body">
+                <div class="project-head">
+                    <h2>Project Z — Roguelike FPS</h2>
+                    <span class="badge dev">Ongoing / Prototype</span>
+                </div>
+                <p class="role"><strong>Tech:</strong> Unity (C#), custom C++ terrain</p>
+                <div class="project-tags">
+                    <span class="tag">Unity</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">Soulslike</span>
+                    <span class="tag">Roguelike</span>
+                    <span class="tag">Procedural</span>
+                </div>
+
+                <p>Project Z is a first person roguelike that mixes soulslike and roguelike design, focused
+                    on realistic gunplay in a procedurally generated world. Each run generates a fresh map,
+                    so the layout and terrain change every time</p>
+                <p>Built as game designer and lead developer, covering the player and weapon systems, enemy
+                    AI and the procedural world it runs on</p>
+
+                <div class="label">Gameplay clips</div>
+                <div class="media-grid">
+                    <video src="media/projectz-movement1.mp4" autoplay muted loop playsinline></video>
+                    <video src="media/projectz-movement2.mp4" autoplay muted loop playsinline></video>
+                    <video src="media/projectz-guns.mp4" autoplay muted loop playsinline></video>
+                </div>
+
+                <div class="label">What I built</div>
+                <ul class="feature-list">
+                    <li><strong>First person controller:</strong> movement, mouse look, look at targeting and weapon view head bobbing</li>
+                    <li><strong>Weapon system:</strong> melee and ranged weapons built on shared interfaces and base classes, covering raycast firing, recoil, reload, weapon pickup and switching, multi slot management and weapon UI</li>
+                    <li><strong>Enemy AI:</strong> a finite state machine with idle, patrol, follow and attack states, wired to animation and stats through Behavior Designer and Unity NavMesh</li>
+                    <li><strong>Stats and damage:</strong> shared interfaces so any entity can take damage and expose stats through one consistent system</li>
+                    <li><strong>Procedural world:</strong> levels built on the custom C++ terrain generator, giving a new layout every run</li>
+                </ul>
+
+                <div class="takeaway">Currently working on multiplayer and on making the enemy AI significantly more advanced</div>
+            </div>
+        </article>
+
+        <article class="project">
+            <div class="project-media">
+                <img src="media/terrain-render.png" alt="Generated terrain">
+            </div>
+            <div class="project-body">
+                <div class="project-head">
+                    <h2>Procedural Terrain Generator</h2>
+                    <span class="badge">Live</span>
+                </div>
+                <p class="role"><strong>Tech:</strong> C++17, OpenMP, nlohmann/json, CMake</p>
+                <div class="project-tags">
+                    <span class="tag">C++17</span>
+                    <span class="tag">OpenMP</span>
+                    <span class="tag">Procedural Gen</span>
+                    <span class="tag">Algorithms</span>
+                </div>
+
+                <p>A standalone procedural world generator that produces terrain, rivers, biomes and
+                    environments. It is fully configurable through JSON and outputs debug images at every
+                    stage, which are converted into height ranges so it can be dropped into any world based
+                    game, and powers the world in Project Z</p>
+                <p>Built as lead developer, covering the full generation pipeline from heightmap through
+                    erosion, rivers, biomes and object placement</p>
+
+                <div class="label">Pipeline (real outputs from the generator)</div>
+                <div class="stage-grid">
+                    <div class="stage"><img src="media/terrain-height.png" alt="heightmap"><span>Heightmap</span></div>
+                    <div class="stage"><img src="media/terrain-biome.png" alt="biomes"><span>Biomes</span></div>
+                    <div class="stage"><img src="media/terrain-rivers.png" alt="rivers"><span>Rivers</span></div>
+                </div>
+
+                <div class="label">How it works</div>
+                <ul class="feature-list">
+                    <li><strong>Base heightmap:</strong> Voronoi tectonic plates blended with fractal brownian motion Perlin noise</li>
+                    <li><strong>Climate maps:</strong> temperature and moisture from layered noise, with a latitude factor so poles are colder and elevation drives moisture</li>
+                    <li><strong>Biome classification:</strong> JSON defined biomes such as ocean, beach, lake and mangrove, with elevation and moisture preferences and coast detection</li>
+                    <li><strong>Hydraulic erosion:</strong> droplet based erosion and deposition that carves realistic slopes and valleys</li>
+                    <li><strong>Rivers and object placement:</strong> river networks flowing downhill, then density based scatter of trees, rocks and grass per biome</li>
+                    <li><strong>Performance:</strong> OpenMP parallelized passes, with reproducible worlds from a single seed via config.json</li>
+                </ul>
+
+                <div class="links">
+                    <a class="btn btn-primary" href="https://github.com/vipinkarthic/Procedural-Heighmap-Generator" target="_blank">View on GitHub ↗</a>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Vipin Karthic &nbsp;·&nbsp; <a href="/">vipinkarthic.com</a></p>
+    </footer>
+</body>
+
+</html>

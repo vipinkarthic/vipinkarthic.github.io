@@ -572,6 +572,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="/portfolio">Portfolio</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -732,7 +733,8 @@
                 <div class="discord-highlight">
                     <h4>Discord is my primary platform for communication</h4>
                     <p>For fastest response and most of my freelance work, reach out on Discord:
-                        <strong>hardhacker17</strong></p>
+                        <strong>hardhacker17</strong>
+                    </p>
                 </div>
 
                 <ul class="contact-methods">
@@ -832,7 +834,6 @@
             });
         });
 
-        // Scroll indicator
         window.addEventListener('scroll', () => {
             const scrollTop = window.pageYOffset;
             const docHeight = document.body.offsetHeight - window.innerHeight;
@@ -840,7 +841,6 @@
             document.getElementById('scrollIndicator').style.width = scrollPercent + '%';
         });
 
-        // Navbar background on scroll
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             if (window.scrollY > 100) {
@@ -850,7 +850,6 @@
             }
         });
 
-        // Fade in animation on scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
